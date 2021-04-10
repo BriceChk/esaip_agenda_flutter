@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class MyButton extends StatelessWidget {
   final String text;
   final Color colorBorder;
@@ -38,6 +40,7 @@ class MyButton extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 20,
+            fontFamily: FONT_NUNITO,
             color: colorText,
             letterSpacing: 0.25,
           ),

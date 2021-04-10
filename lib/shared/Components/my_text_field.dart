@@ -33,13 +33,15 @@ class MyTextField extends StatelessWidget {
         autofocus: false,
         obscureText: obsecure,
         style: TextStyle(
-            fontSize: 16,
-            color: COLOR_GREY,
+          fontFamily: FONT_NUNITO,
+          fontSize: 16,
+          color: COLOR_GREY,
         ),
         decoration: InputDecoration(
             fillColor: COLOR_WHITE_GREY,
             filled: true,
             hintStyle: TextStyle(
+                fontFamily: FONT_NUNITO,
                 fontSize: 16,
                 color: COLOR_GREY
             ),

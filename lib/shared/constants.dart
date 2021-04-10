@@ -13,3 +13,6 @@ const COLOR_GREEN_TEXT = Color(0xffD6F6DD);
 const COLOR_GREEN_CARD = Color(0xffB1EDC0);
 const COLOR_GREY = Color(0xff4E4E4E);
 const COLOR_WHITE_GREY = Color(0xffF4F4F4);
+
+//Font
+const String FONT_NUNITO = "Nunito";

@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 "Agenda ESAIP",
                 style: TextStyle(
+                    fontFamily: FONT_NUNITO,
                     fontSize: 26,
                     color: COLOR_GREY,
                     fontWeight: FontWeight.bold
@@ -41,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Connexion avec Alcuin",
                     style: TextStyle(
+                      fontFamily: FONT_NUNITO,
                       fontSize: 22,
                       color: COLOR_GREY,
                     ),
@@ -95,16 +97,23 @@ class _LoginPageState extends State<LoginPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10),
           ),
           contentTextStyle: TextStyle(
+            fontFamily: FONT_NUNITO,
             color: COLOR_GREY,
             fontSize: 18,
           ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Patiente pendant le premier chargement de ton agenda.'),
+                Text(
+                  'Patiente pendant le premier chargement de ton agenda.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: FONT_NUNITO,
+                  ),
+                ),
                 JumpingDotsProgressIndicator(
                   fontSize: 40,
                   milliseconds: 400,

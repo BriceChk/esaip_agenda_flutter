@@ -33,7 +33,7 @@ class MyTextField extends StatelessWidget {
         autofocus: false,
         obscureText: obsecure,
         style: TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             color: COLOR_GREY,
         ),
         decoration: InputDecoration(

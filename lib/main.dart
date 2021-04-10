@@ -1,7 +1,12 @@
+import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
+import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -9,42 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Agenda ESAIP',
       theme: ThemeData(
+        accentColor: COLOR_GREY,
+        highlightColor: COLOR_GREY.withOpacity(0.25),
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Agenda ESAIP'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
-
-  final String? title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title!),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Coucou',
-            ),
-          ],
-        ),
-      ),
+      home: Scaffold(body: LoginPage()),
     );
   }
 }

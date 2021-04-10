@@ -3,6 +3,7 @@ import 'package:esaip_agenda_flutter/shared/Components/my_text_field.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -70,7 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                 colorButton: COLOR_WHITE,
                 colorText: COLOR_GREY,
                 colorOverlay: COLOR_GREY.withOpacity(0.25),
-                onPressed: (){},
+                onPressed: (){
+                  _showMyDialog(context);
+                },
                 colorShadow: Colors.transparent,
               ),
             ),
@@ -83,6 +86,44 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+    );
+  }
+  Future<void> _showMyDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+          ),
+          contentTextStyle: TextStyle(
+            color: COLOR_GREY,
+            fontSize: 18,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Patiente pendant le premier chargement de ton agenda.'),
+                JumpingDotsProgressIndicator(
+                  fontSize: 40,
+                  milliseconds: 400,
+                  dotSpacing: 3,
+                )
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            //TODO CHANGER ICI: enlever quand le backend sera fait
+            TextButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

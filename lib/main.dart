@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         accentColor: COLOR_GREY,
         highlightColor: COLOR_GREY.withOpacity(0.25),
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       home: Scaffold(body: LoginPage()),
     );

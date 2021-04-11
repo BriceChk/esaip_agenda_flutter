@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage>
                   ),
                 ),
                 child: TabBar(
+                  //TODO voir couleur quand on rest appuyé.
                   controller: _tabController,
                   indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),

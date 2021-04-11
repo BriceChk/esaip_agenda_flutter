@@ -90,6 +90,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+
   Future<void> _showMyDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
@@ -127,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               child: Text('Approve'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).popAndPushNamed('/home');
               },
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Agenda ESAIP',
-      theme: ThemeData(
-        accentColor: COLOR_GREY,
-        highlightColor: COLOR_GREY.withOpacity(0.25),
-        primarySwatch: Colors.grey,
-      ),
-      home: Scaffold(body: LoginPage()),
+        debugShowCheckedModeBanner: false,
+        title: 'Agenda ESAIP',
+        theme: ThemeData(
+          accentColor: COLOR_GREY,
+          highlightColor: COLOR_GREY.withOpacity(0.25),
+          primarySwatch: Colors.grey,
+        ),
+        home: Scaffold(body: LoginPage(),
+        ),
+        routes: <String, WidgetBuilder> {
+          '/connexion': (BuildContext context) => LoginPage(),
+          '/home': (BuildContext context) => HomePage(),
+        }
+
     );
   }
 }

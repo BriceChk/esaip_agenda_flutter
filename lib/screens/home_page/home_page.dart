@@ -1,6 +1,9 @@
+import 'package:esaip_agenda_flutter/models/event.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'event_list.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -11,11 +14,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  //TODO A enlever une fois le back end fait
+  List<Event> test = [];
+
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    //TODO A enlever aussi
+    test.add(Event(id: 0, name: 'Développement mobile avancé, avancé avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+    test.add(Event(id: 1, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+    test.add(Event(id: 2, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+    test.add(Event(id: 3, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+    test.add(Event(id: 4, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+
   }
 
   @override
@@ -26,6 +39,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -49,7 +63,7 @@ class _HomePageState extends State<HomePage>
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(75),
+          preferredSize: Size.fromHeight(65),
           child: Column(
             children: [
               Container(
@@ -105,13 +119,7 @@ class _HomePageState extends State<HomePage>
           controller: _tabController,
           children: [
             Center(
-              child: Text(
-                'Liste',
-                style: TextStyle(
-                  fontFamily: FONT_NUNITO,
-                  fontSize: 18,
-                ),
-              ),
+              child: EventList(event: test)
             ),
             Center(
               child: Text(

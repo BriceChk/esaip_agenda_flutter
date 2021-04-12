@@ -4,6 +4,7 @@ import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());

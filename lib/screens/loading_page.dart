@@ -14,7 +14,7 @@ class LoadingPage extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/logo.png',
-                height: 100,
+                height: 200,
                 fit: BoxFit.fitHeight,
               ),
               SizedBox(height: 30,),

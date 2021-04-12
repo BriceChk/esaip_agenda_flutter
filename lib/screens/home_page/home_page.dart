@@ -119,9 +119,7 @@ class _HomePageState extends State<HomePage>
         child: TabBarView(
           controller: _tabController,
           children: [
-            Center(
-              child: EventList(event: test)
-            ),
+            EventList(event: test),
             Center(
               child: Text(
                 'Grille',

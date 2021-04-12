@@ -15,21 +15,12 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   Widget home = LoadingPage();
-  bool _loading = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
 
   @override
   Widget build(BuildContext context) {

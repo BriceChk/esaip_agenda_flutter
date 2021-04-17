@@ -1,4 +1,5 @@
 import 'package:esaip_agenda_flutter/models/event.dart';
+import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -124,13 +125,7 @@ class _HomePageState extends State<HomePage>
           children: [
             EventList(event: test),
             Center(
-              child: Text(
-                'Grille',
-                style: TextStyle(
-                  fontFamily: FONT_NUNITO,
-                  fontSize: 18,
-                ),
-              ),
+              child: TimetableExample(),
             ),
           ],
         ),

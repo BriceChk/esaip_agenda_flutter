@@ -7,11 +7,15 @@ import 'package:esaip_agenda_flutter/services/auth_service.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:time_machine/time_machine.dart';
 
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  WidgetsFlutterBinding.ensureInitialized();
+  await TimeMachine.initialize({'rootBundle': rootBundle});
+
   runApp(MyApp());
 }
 

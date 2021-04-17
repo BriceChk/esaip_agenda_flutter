@@ -35,7 +35,7 @@ class _NotesState extends State<Notes> {
           children: [
             Hero(
               tag: widget.event.id.toString(),
-              child: MyEventCard(widget.event)
+              child: MyEventCard(widget.event, false, widget.event.type)
             ),
           ],
         ),

@@ -23,11 +23,11 @@ class _HomePageState extends State<HomePage>
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
     //TODO A enlever aussi
-    test.add(Event(id: 0, name: 'Développement mobile avancé, avancé avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
-    test.add(Event(id: 1, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
-    test.add(Event(id: 2, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
-    test.add(Event(id: 3, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
-    test.add(Event(id: 4, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY'));
+    test.add(Event(id: 0, name: 'Développement mobile avancé, avancé avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 1));
+    test.add(Event(id: 1, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 2));
+    test.add(Event(id: 2, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 3));
+    test.add(Event(id: 3, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Jeudi 08 Avril 2021", type: 2));
+    test.add(Event(id: 4, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Jeudi 08 Avril 2021", type: 2));
 
   }
 

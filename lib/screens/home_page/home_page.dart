@@ -64,53 +64,56 @@ class _HomePageState extends State<HomePage>
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(65),
-          child: Column(
-            children: [
-              Container(
-                height: 40,
-                width: 250,
-                decoration: BoxDecoration(
-                  color: COLOR_GREY,
-                  borderRadius: BorderRadius.circular(
-                    25.0,
-                  ),
-                ),
-                child: TabBar(
-                  //TODO voir couleur quand on rest appuyé.
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    border: Border.all(
-                      color: COLOR_GREY,
-                      width: 1.5,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Column(
+              children: [
+                Container(
+                  height: 40,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    color: COLOR_GREY,
+                    borderRadius: BorderRadius.circular(
+                      25.0,
                     ),
-                    color: COLOR_WHITE,
                   ),
-                  labelColor: COLOR_GREY,
-                  unselectedLabelColor: COLOR_WHITE,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        'Liste',
-                        style: TextStyle(
-                          fontFamily: FONT_NUNITO,
-                          fontSize: 16,
+                  child: TabBar(
+                    //TODO voir couleur quand on rest appuyé.
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.0),
+                      border: Border.all(
+                        color: COLOR_GREY,
+                        width: 1.5,
+                      ),
+                      color: COLOR_WHITE,
+                    ),
+                    labelColor: COLOR_GREY,
+                    unselectedLabelColor: COLOR_WHITE,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          'Liste',
+                          style: TextStyle(
+                            fontFamily: FONT_NUNITO,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Grille',
-                        style: TextStyle(
-                          fontFamily: FONT_NUNITO,
-                          fontSize: 16,
+                      Tab(
+                        child: Text(
+                          'Grille',
+                          style: TextStyle(
+                            fontFamily: FONT_NUNITO,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

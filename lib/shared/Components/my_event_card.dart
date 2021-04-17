@@ -7,23 +7,50 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class MyEventCard extends StatefulWidget {
-  MyEventCard(this.event);
+  MyEventCard(this.event, this.opennedState, this.type);
 
   final Event event;
+  final bool opennedState;
+  final int type;
 
   @override
   _MyEventCardState createState() => _MyEventCardState();
 }
 
 class _MyEventCardState extends State<MyEventCard> {
+  late Color colorText;
+  late Color colorCard;
+  late Color colorButton;
+  @override
+  void initState() {
+    super.initState();
+    switch (widget.type) {
+      case 1:
+         colorText = COLOR_RED_TEXT;
+         colorCard = COLOR_RED_CARD;
+         colorButton = COLOR_RED_CARD_BUTTON;
+         break;
+      case 2 :
+        colorText = COLOR_GREEN_TEXT;
+        colorCard = COLOR_GREEN_CARD;
+        colorButton = COLOR_GREEN_CARD_BUTTON;
+        break;
+      case 3:
+        colorText = COLOR_PURPLE_TEXT;
+        colorCard = COLOR_PURPLE_CARD;
+        colorButton = COLOR_PURPLE_CARD_BUTTON;
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minHeight: 150,
+        minHeight: 100,
       ),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 7.5),
+        margin: EdgeInsets.symmetric(vertical: 2.5),
         child: Card(
           elevation: 2,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -32,7 +59,7 @@ class _MyEventCardState extends State<MyEventCard> {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: COLOR_RED_CARD,
+              color: colorCard,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +67,7 @@ class _MyEventCardState extends State<MyEventCard> {
                 Text(
                   widget.event.name,
                   style: TextStyle(
-                    color: COLOR_RED_TEXT,
+                    color: colorText,
                     fontSize: 20,
                     fontFamily: FONT_NUNITO,
                   ),
@@ -53,14 +80,14 @@ class _MyEventCardState extends State<MyEventCard> {
                       child: Icon(
                         FontAwesomeIcons.clock,
                         size: 15,
-                        color: COLOR_RED_TEXT,
+                        color: colorText,
                       ),
                     ),
                     SizedBox(width: 7.5),
                     Text(
                       widget.event.hours,
                       style: TextStyle(
-                        color: COLOR_RED_TEXT,
+                        color: colorText,
                         fontSize: 16,
                         fontFamily: FONT_NUNITO,
                       ),
@@ -80,14 +107,14 @@ class _MyEventCardState extends State<MyEventCard> {
                               child: Icon(
                                 FontAwesomeIcons.mapMarkerAlt,
                                 size: 15,
-                                color: COLOR_RED_TEXT,
+                                color: colorText,
                               ),
                             ),
                             SizedBox(width: 7.5),
                             Text(
                               widget.event.classroom,
                               style: TextStyle(
-                                color: COLOR_RED_TEXT,
+                                color: colorText,
                                 fontSize: 16,
                                 fontFamily: FONT_NUNITO,
                               ),
@@ -101,14 +128,14 @@ class _MyEventCardState extends State<MyEventCard> {
                               child: Icon(
                                 FontAwesomeIcons.userAlt,
                                 size: 15,
-                                color: COLOR_RED_TEXT,
+                                color: colorText,
                               ),
                             ),
                             SizedBox(width: 7.5),
                             Text(
                               widget.event.teacher,
                               style: TextStyle(
-                                color: COLOR_RED_TEXT,
+                                color: colorText,
                                 fontSize: 16,
                                 fontFamily: FONT_NUNITO,
                               ),
@@ -117,67 +144,7 @@ class _MyEventCardState extends State<MyEventCard> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 50,
-                      width: 50,
-                      //color: Colors.amber,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(7.5),
-                                onTap: () {
-                                  Navigator.push(context, CupertinoPageRoute(builder: (_) {
-                                    return Notes(widget.event);
-                                    },
-                                  ));},
-
-                                splashColor: Colors.white,
-                                child: Ink(
-                                  child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      color: COLOR_RED_CARD_BUTTON.withOpacity(0.75),
-                                      borderRadius: BorderRadius.circular(7.5),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        FontAwesomeIcons.stickyNote,
-                                        color: COLOR_RED_TEXT,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            child: Container(
-                              height: 15,
-                              width: 15,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: COLOR_RED_TEXT,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '1',
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    fontFamily: FONT_NUNITO,
-                                    color: COLOR_WHITE_GREY,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildNoteIcon(widget.opennedState),
                   ],
                 ),
               ],
@@ -186,5 +153,76 @@ class _MyEventCardState extends State<MyEventCard> {
         ),
       ),
     );
+  }
+
+  Widget _buildNoteIcon(bool openState){
+    if (openState){
+      return Container(
+        height: 50,
+        width: 50,
+        child: Stack(
+          children: [
+            Center(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(7.5),
+                  onTap: () {
+                    Navigator.push(context, CupertinoPageRoute(builder: (_) {
+                      return Notes(widget.event);
+                    },
+                    ));},
+
+                  splashColor: Colors.white,
+                  child: Ink(
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: colorButton.withOpacity(0.75),
+                        borderRadius: BorderRadius.circular(7.5),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          FontAwesomeIcons.stickyNote,
+                          color: colorText,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              right: 0,
+              child: Container(
+                height: 15,
+                width: 15,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colorText,
+                ),
+                child: Center(
+                  child: Text(
+                    '1',
+                    style: TextStyle(
+                      fontSize: 9,
+                      fontFamily: FONT_NUNITO,
+                      color: COLOR_WHITE_GREY,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    else {
+      return Container(
+        height: 50,
+        width: 50,
+      );
+    }
   }
 }

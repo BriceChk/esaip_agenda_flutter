@@ -19,6 +19,7 @@ class _NotesState extends State<Notes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: COLOR_WHITE,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {

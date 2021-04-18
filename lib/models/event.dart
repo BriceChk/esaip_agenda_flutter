@@ -9,6 +9,7 @@ class Event {
     required this.classroom,
     required this.teacher,
     required this.type,
+    this.note ="",
   });
 
   int id;
@@ -18,4 +19,5 @@ class Event {
   String classroom;
   String teacher;
   int type;
+  String note;
 }

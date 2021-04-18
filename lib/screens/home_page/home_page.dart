@@ -1,6 +1,9 @@
 import 'package:esaip_agenda_flutter/models/event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
+import 'package:esaip_agenda_flutter/screens/menu/menu.dart';
+import 'package:esaip_agenda_flutter/screens/menu/menu_transition.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -51,7 +54,9 @@ class _HomePageState extends State<HomePage>
           child: IconButton(
             splashRadius: 25,
             icon: Icon(FontAwesomeIcons.bars),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(context, SlideRightRoute(page: Menu()));
+            },
           ),
         ),
         title: Text(

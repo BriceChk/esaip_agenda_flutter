@@ -193,27 +193,7 @@ class _MyEventCardState extends State<MyEventCard> {
                 ),
               ),
             ),
-            Positioned(
-              right: 0,
-              child: Container(
-                height: 15,
-                width: 15,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: colorText,
-                ),
-                child: Center(
-                  child: Text(
-                    '1',
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontFamily: FONT_NUNITO,
-                      color: COLOR_WHITE_GREY,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            _buildNumberOfNote(widget.event.note),
           ],
         ),
       );
@@ -222,6 +202,35 @@ class _MyEventCardState extends State<MyEventCard> {
       return Container(
         height: 50,
         width: 50,
+      );
+    }
+  }
+
+  Widget _buildNumberOfNote(String nbNote){
+    if (nbNote.isEmpty){
+      return Container();
+    }
+    else {
+      return Positioned(
+        right: 0,
+        child: Container(
+          height: 15,
+          width: 15,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: colorText,
+          ),
+          child: Center(
+            child: Text(
+              nbNote,
+              style: TextStyle(
+                fontSize: 9,
+                fontFamily: FONT_NUNITO,
+                color: COLOR_WHITE_GREY,
+              ),
+            ),
+          ),
+        ),
       );
     }
   }

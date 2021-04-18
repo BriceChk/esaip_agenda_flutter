@@ -71,7 +71,8 @@ class _TimetableExampleState extends State<TimetableExample> {
         allDayEventBuilder: (context, event, info) => BasicAllDayEventWidget(
           event,
           info: info,
-          onTap: () {},
+          onTap: () {
+          },
         ),
       );
   }

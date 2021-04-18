@@ -50,6 +50,14 @@ class _TimetableExampleState extends State<TimetableExample> {
   @override
   Widget build(BuildContext context) {
     return Timetable<BasicEvent>(
+      theme: TimetableThemeData(
+        weekIndicatorDecoration: BoxDecoration(
+          color: Colors.transparent
+        ),
+        weekIndicatorTextStyle: TextStyle(
+          fontSize: 0,
+        ),
+      ),
         controller: _controller,
         onEventBackgroundTap: (start, isAllDay) {},
         eventBuilder: (event) {

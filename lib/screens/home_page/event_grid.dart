@@ -58,7 +58,7 @@ class _TimetableExampleState extends State<TimetableExample> {
         controller: _controller,
         onEventBackgroundTap: (start, isAllDay) {},
         eventBuilder: (event) {
-          return BasicEventExtendedWidget(event, () { }, 'A05');
+          return BasicEventExtendedWidget(event, () { }, (event as CourseEvent).room);
         },
         allDayEventBuilder: (context, event, info) => BasicAllDayEventWidget(
           event,

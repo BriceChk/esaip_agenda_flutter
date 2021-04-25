@@ -18,7 +18,7 @@ class CourseNote {
   factory CourseNote.fromJson(Map<String, dynamic> json) => CourseNote(
     id: json["id"],
     content: json["content"],
-    createdDate: DateTime.parse(json["created_date"]),
+    createdDate: DateTime.parse(json["created_date"]).toLocal(),
   );
 
   Map<String, dynamic> toJson() => {

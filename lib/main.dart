@@ -3,7 +3,7 @@
 import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/loading_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
-import 'package:esaip_agenda_flutter/services/auth_service.dart';
+import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

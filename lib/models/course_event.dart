@@ -33,17 +33,21 @@ class CourseEvent implements BasicEvent {
   List<CourseNote> notes;
   int alcuinId;
 
-  factory CourseEvent.fromJson(Map<String, dynamic> json) => CourseEvent(
-    id: json["id"],
-    name: json["name"],
-    startsAt: DateTime.parse(json["starts_at"]).toLocal(),
-    endsAt: DateTime.parse(json["ends_at"]).toLocal(),
-    room: json["room"],
-    teacher: json["teacher"],
-    type: typeValues.map[json["type"]]!,
-    notes: List<CourseNote>.from(json["course_notes"].map((x) => CourseNote.fromJson(x))),
-    alcuinId: json["alcuin_id"],
-  );
+  factory CourseEvent.fromJson(Map<String, dynamic> json) {
+    var e = CourseEvent(
+      id: json["id"],
+      name: json["name"],
+      startsAt: DateTime.parse(json["starts_at"]).toLocal(),
+      endsAt: DateTime.parse(json["ends_at"]).toLocal(),
+      room: json["room"],
+      teacher: json["teacher"],
+      type: typeValues.map[json["type"]]!,
+      notes: List<CourseNote>.from(json["course_notes"].map((x) => CourseNote.fromJson(x))),
+      alcuinId: json["alcuin_id"],
+    );
+    e.notes.sort((a, b) => a.createdDate.isAfter(b.createdDate) ? -1 : 1);
+    return e;
+  }
 
   Map<String, dynamic> toJson() => {
     "id": id,

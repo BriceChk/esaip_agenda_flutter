@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/models/course_note.dart';
 import 'package:requests/requests.dart';
 
 String url = 'https://agenda-esaip.bricechk.fr';
@@ -26,4 +27,30 @@ Future<List<CourseEvent>?> getEvents() async {
   }
   var jsonArray = jsonDecode(response.content()) as List;
   return jsonArray.map((e) => CourseEvent.fromJson(e)).toList();
+}
+
+Future<CourseNote?> addNote(CourseEvent e, String note) async {
+  final response = await Requests.post('$url/courses/' + e.id.toString() + '/notes', body: {
+    'content': note
+  });
+  if (response.hasError) {
+    return null;
+  }
+  return courseNoteFromJson(response.content());
+}
+
+Future<CourseNote?> updateNote(CourseNote note) async {
+  final response = await Requests.post('$url/notes/' + note.id.toString(), body: {
+    'content': note.content
+  });
+  if (response.hasError) {
+    print(response.content());
+    return null;
+  }
+  return courseNoteFromJson(response.content());
+}
+
+Future<bool> deleteNote(CourseNote note) async {
+  final response = await Requests.delete('$url/notes/' + note.id.toString());
+  return !response.hasError;
 }

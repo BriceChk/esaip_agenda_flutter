@@ -15,6 +15,7 @@ class EventList extends StatelessWidget {
 
     return Scrollbar(
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: courseEvents.map((e) {
             List<Widget> widgets = [];
 

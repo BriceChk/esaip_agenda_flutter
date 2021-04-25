@@ -1,5 +1,6 @@
 import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/models/course_note.dart';
+import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/Components/my_event_card.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,10 +26,7 @@ class _NotesState extends State<Notes> {
       backgroundColor: COLOR_WHITE,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            _showMyDialog(context);
-            //widget.event.notes.add(CourseNote(id: -1, content: 'A FAIRE', createdDate: DateTime.now()));
-          });
+          _showMyDialog(context, null);
         },
         child: Icon(FontAwesomeIcons.plus),
       ),
@@ -79,7 +77,7 @@ class _NotesState extends State<Notes> {
           ),
           SizedBox(height: 25),
           Text(
-            'Aucune note de disponible',
+            'Aucune note',
             style: TextStyle(
               fontFamily: FONT_NUNITO,
               fontSize: 16,
@@ -88,38 +86,143 @@ class _NotesState extends State<Notes> {
         ],
       );
     } else {
-      return Column(
-        children: widget.event.notes.map((e) => _buildNote(e)).toList(),
+      return Container(
+        height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 280,
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          children: widget.event.notes.map((e) => _buildNote(e)).toList(),
+        ),
       );
     }
   }
 
   //TODO Afficher date
   Widget _buildNote(CourseNote note) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 40,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-      decoration: BoxDecoration(
+    var df = DateFormat('dd MMM yyyy - H:mm', 'fr_FR');
+    return GestureDetector(
+      onTap: () {
+        _showMyDialog(context, note);
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width - 40,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        decoration: BoxDecoration(
           color: COLOR_WHITE_GREY,
           borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        note.content,
-        style: TextStyle(fontFamily: FONT_NUNITO),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              df.format(note.createdDate),
+              style: TextStyle(fontFamily: FONT_NUNITO, color: Colors.grey[500]),
+            ),
+            Text(
+              note.content,
+              style: TextStyle(fontFamily: FONT_NUNITO),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Future<void> _showMyDialog(BuildContext context) async {
+  Future<void> _showMyDialog(BuildContext context, CourseNote? note) async {
     TextEditingController textEditingController = TextEditingController();
+
+    List<Widget> actions = [
+      TextButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all<Color>(COLOR_WHITE_GREY),
+        ),
+        child: Text(
+          'Annuler',
+          style: TextStyle(
+            fontFamily: FONT_NUNITO,
+            fontSize: 14,
+          ),
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+      TextButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all<Color>(COLOR_RED_CARD_BUTTON),
+        ),
+        child: Text(
+          'Enregistrer',
+          style: TextStyle(
+            fontFamily: FONT_NUNITO,
+            fontSize: 14,
+            color: Colors.black
+          ),
+        ),
+        onPressed: () {
+          if (textEditingController.text != '') {
+            if (note != null) {
+              note.content = textEditingController.text;
+              updateNote(note).then((value) {
+                Navigator.pop(context, true);
+                if (value == null) {
+                  //TODO Error
+                } else {
+                  setState(() {
+                    widget.event.notes.remove(note);
+                    widget.event.notes.insert(0, value);
+                  });
+                }
+              });
+            } else {
+              addNote(widget.event, textEditingController.text).then((value) {
+                Navigator.pop(context, true);
+                if (value == null) {
+                  //TODO Error
+                } else {
+                  setState(() {
+                    widget.event.notes.add(value);
+                  });
+                }
+              });
+            }
+          }
+        },
+      ),
+    ];
+
+    if (note != null) {
+      textEditingController.text = note.content;
+      actions.insert(1, TextButton(
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all<Color>(COLOR_WHITE_GREY),
+        ),
+        onPressed: () {
+          deleteNote(note).then((value) {
+            Navigator.pop(context, true);
+            setState(() {
+              widget.event.notes.remove(note);
+            });
+          });
+        },
+        child: Text(
+          'Supprimer',
+          style: TextStyle(
+            fontFamily: FONT_NUNITO,
+            fontSize: 14,
+            color: Colors.redAccent,
+          ),
+        ),
+      ));
+    }
+
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Que voulez-vous noter ?',
+            'Rédiger une note',
             style: TextStyle(
               fontFamily: FONT_NUNITO,
             ),
@@ -133,51 +236,14 @@ class _NotesState extends State<Notes> {
                 TextField(
                   controller: textEditingController,
                   keyboardType: TextInputType.multiline,
+                  autofocus: true,
                   minLines: 1,//Normal textInputField will be displayed
                   maxLines: 5,// when user presses enter it will adapt to it
                 ),
               ],
             ),
           ),
-          actions: <Widget>[
-            TextButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(COLOR_WHITE_GREY),
-              ),
-              child: Text(
-                'Retour',
-                style: TextStyle(
-                  fontFamily: FONT_NUNITO,
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(COLOR_RED_CARD_BUTTON),
-              ),
-              child: Text(
-                'Valider',
-                style: TextStyle(
-                  fontFamily: FONT_NUNITO,
-                  fontSize: 14,
-                  color: Colors.redAccent,
-                ),
-              ),
-              onPressed: () {
-                Navigator.pop(context, true);
-                setState(() {
-                  if (textEditingController.text != '') {
-                    widget.event.notes.add(CourseNote(id: -1, content:  DateTime.now().day.toString()+"/" + DateTime.now().month.toString() + " : " + textEditingController.text, createdDate: DateTime.now()));
-                  }
-                });
-              },
-            ),
-          ],
+          actions: actions,
         );
       },
     );

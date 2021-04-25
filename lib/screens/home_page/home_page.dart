@@ -2,7 +2,7 @@ import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu_transition.dart';
-import 'package:esaip_agenda_flutter/services/auth_service.dart';
+import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

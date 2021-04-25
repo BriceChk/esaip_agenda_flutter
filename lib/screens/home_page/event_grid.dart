@@ -1,11 +1,8 @@
 import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/basic_event_extended.dart';
-import 'package:esaip_agenda_flutter/screens/home_page/notes.dart';
 import 'package:flutter/material.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:timetable/timetable.dart';
-
-
 
 class TimetableExample extends StatefulWidget {
   final List<CourseEvent> courseEvents;
@@ -55,13 +52,13 @@ class _TimetableExampleState extends State<TimetableExample> {
         weekIndicatorTextStyle: TextStyle(
           fontSize: 0,
         ),
+        minimumHourZoom: 2,
+        maximumHourZoom: 2
       ),
         controller: _controller,
         onEventBackgroundTap: (start, isAllDay) {},
         eventBuilder: (event) {
-          return BasicEventExtendedWidget(event, () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Notes((event as CourseEvent))));
-          }, (event as CourseEvent).room);
+          return BasicEventExtendedWidget(event as CourseEvent);
         },
         allDayEventBuilder: (context, event, info) => BasicAllDayEventWidget(
           event,

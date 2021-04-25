@@ -1,18 +1,12 @@
+import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/screens/home_page/notes.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:timetable/timetable.dart';
-import 'package:time_machine/time_machine.dart' hide Offset;
 
 class BasicEventExtendedWidget extends StatelessWidget {
-  BasicEventExtendedWidget(
-      this.basicEvent,
-      this.onTap,
-      this.room
-      );
+  BasicEventExtendedWidget(this.event);
 
-  final BasicEvent basicEvent;
-  final VoidCallback onTap;
-  final String room;
+  final CourseEvent event;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +14,12 @@ class BasicEventExtendedWidget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
-      color: basicEvent.color,
+      color: event.color,
       child: InkWell(
         borderRadius: BorderRadius.circular(4),
-        onTap: onTap,
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Notes(event)));
+        },
         child: Padding(
           padding: EdgeInsets.fromLTRB(4, 2, 4, 0),
           child: DefaultTextStyle(
@@ -35,10 +31,14 @@ class BasicEventExtendedWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(basicEvent.title),
+                Text(
+                  event.title,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
                 SizedBox(height: 2.5),
                 Text(
-                  room,
+                  event.room,
                   style: TextStyle(
                     color: COLOR_GREY.withOpacity(0.65),
                   ),

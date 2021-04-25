@@ -16,6 +16,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await TimeMachine.initialize({'rootBundle': rootBundle});
+  Culture.current = await Cultures.getCulture('fr');
   await initializeDateFormatting('fr_FR', null);
 
   runApp(MyApp());

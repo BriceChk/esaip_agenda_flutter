@@ -20,7 +20,7 @@ const String FONT_NUNITO = "Nunito";
 
 // Utils
 String formatHours(DateTime time) {
-  DateFormat hourFormat = DateFormat('H:m');
+  DateFormat hourFormat = DateFormat('H:mm');
   return hourFormat.format(time);
 }
 

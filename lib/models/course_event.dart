@@ -36,8 +36,8 @@ class CourseEvent implements BasicEvent {
   factory CourseEvent.fromJson(Map<String, dynamic> json) => CourseEvent(
     id: json["id"],
     name: json["name"],
-    startsAt: DateTime.parse(json["starts_at"]),
-    endsAt: DateTime.parse(json["ends_at"]),
+    startsAt: DateTime.parse(json["starts_at"]).toLocal(),
+    endsAt: DateTime.parse(json["ends_at"]).toLocal(),
     room: json["room"],
     teacher: json["teacher"],
     type: typeValues.map[json["type"]]!,
@@ -58,7 +58,7 @@ class CourseEvent implements BasicEvent {
   };
 
   @override
-  LocalDateTime get end => LocalDateTime.dateTime(endsAt);
+  LocalDateTime get end => LocalDateTime.dateTime(endsAt.add(endsAt.timeZoneOffset));
 
   @override
   bool get isAllDay => false;
@@ -67,7 +67,7 @@ class CourseEvent implements BasicEvent {
   bool get isPartDay => true;
 
   @override
-  LocalDateTime get start => LocalDateTime.dateTime(startsAt);
+  LocalDateTime get start => LocalDateTime.dateTime(startsAt.add(startsAt.timeZoneOffset));
 
   @override
   bool operator ==(other) {

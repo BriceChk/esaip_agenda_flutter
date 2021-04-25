@@ -33,6 +33,7 @@ dependencies:
   progress_indicators: ^1.0.0
   timetable: ^0.2.9
   intl: ^0.17.0
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.8.0

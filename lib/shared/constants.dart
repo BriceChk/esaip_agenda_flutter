@@ -21,7 +21,7 @@ const String FONT_NUNITO = "Nunito";
 // Utils
 String formatHours(DateTime time) {
   DateFormat hourFormat = DateFormat('H:mm');
-  return hourFormat.format(time.toLocal());
+  return hourFormat.format(time);
 }
 
 String formatDate(DateTime time) {

@@ -3,6 +3,7 @@
 import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/loading_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
+import 'package:esaip_agenda_flutter/screens/notes/grade.dart';
 import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Agenda ESAIP',
         theme: ThemeData(
-          accentColor: COLOR_GREY,
+          accentColor: COLOR_GREY.withOpacity(0.5),
           highlightColor: COLOR_GREY.withOpacity(0.25),
           primarySwatch: Colors.grey,
         ),
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
           '/loading': (BuildContext context) => LoadingPage(),
           '/login': (BuildContext context) => LoginPage(),
           '/home': (BuildContext context) => HomePage(),
+          '/notes': (BuildContext context) => GradePage(),
         }
 
     );

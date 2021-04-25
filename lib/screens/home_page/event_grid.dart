@@ -1,4 +1,5 @@
 import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/screens/home_page/basic_event_extended.dart';
 import 'package:flutter/material.dart';
 import 'package:time_machine/time_machine.dart';
 import 'package:timetable/timetable.dart';
@@ -57,12 +58,7 @@ class _TimetableExampleState extends State<TimetableExample> {
         controller: _controller,
         onEventBackgroundTap: (start, isAllDay) {},
         eventBuilder: (event) {
-          return BasicEventWidget(
-            event,
-            onTap: () {
-              print("test");
-            }
-          );
+          return BasicEventExtendedWidget(event, () { }, 'A05');
         },
         allDayEventBuilder: (context, event, info) => BasicAllDayEventWidget(
           event,

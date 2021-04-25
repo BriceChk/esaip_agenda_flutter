@@ -108,7 +108,19 @@ class _NotesState extends State<Notes> {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
         decoration: BoxDecoration(
-          color: COLOR_WHITE_GREY,
+          boxShadow: [
+            BoxShadow(
+              color: COLOR_GREY.withOpacity(0.2),
+              spreadRadius: 0.5,
+              blurRadius: 3,
+              offset: Offset(0, 2), // changes position of shadow
+            ),
+          ],
+          border: Border.all(
+            width: 0.75,
+            color: COLOR_GREY.withOpacity(0.5),
+          ),
+          color: COLOR_WHITE,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -154,9 +166,9 @@ class _NotesState extends State<Notes> {
         child: Text(
           'Enregistrer',
           style: TextStyle(
-            fontFamily: FONT_NUNITO,
-            fontSize: 14,
-            color: Colors.black
+              fontFamily: FONT_NUNITO,
+              fontSize: 14,
+              color: Colors.black
           ),
         ),
         onPressed: () {

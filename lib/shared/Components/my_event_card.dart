@@ -1,4 +1,4 @@
-import 'package:esaip_agenda_flutter/models/event.dart';
+import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/notes.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,11 +7,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class MyEventCard extends StatefulWidget {
-  MyEventCard(this.event, this.opennedState, this.type);
+  MyEventCard(this.event, this.opennedState);
 
-  final Event event;
+  final CourseEvent event;
   final bool opennedState;
-  final int type;
 
   @override
   _MyEventCardState createState() => _MyEventCardState();
@@ -21,21 +20,22 @@ class _MyEventCardState extends State<MyEventCard> {
   late Color colorText;
   late Color colorCard;
   late Color colorButton;
+
   @override
   void initState() {
     super.initState();
-    switch (widget.type) {
-      case 1:
+    switch (widget.event.type) {
+      case Type.EXAM:
          colorText = COLOR_RED_TEXT;
          colorCard = COLOR_RED_CARD;
          colorButton = COLOR_RED_CARD_BUTTON;
          break;
-      case 2 :
+      case Type.COURS:
         colorText = COLOR_GREEN_TEXT;
         colorCard = COLOR_GREEN_CARD;
         colorButton = COLOR_GREEN_CARD_BUTTON;
         break;
-      case 3:
+      default:
         colorText = COLOR_PURPLE_TEXT;
         colorCard = COLOR_PURPLE_CARD;
         colorButton = COLOR_PURPLE_CARD_BUTTON;
@@ -63,6 +63,7 @@ class _MyEventCardState extends State<MyEventCard> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   widget.event.name,
@@ -85,7 +86,7 @@ class _MyEventCardState extends State<MyEventCard> {
                     ),
                     SizedBox(width: 7.5),
                     Text(
-                      widget.event.hours,
+                      formatHours(widget.event.startsAt) + ' - ' + formatHours(widget.event.endsAt),
                       style: TextStyle(
                         color: colorText,
                         fontSize: 16,
@@ -112,7 +113,7 @@ class _MyEventCardState extends State<MyEventCard> {
                             ),
                             SizedBox(width: 7.5),
                             Text(
-                              widget.event.classroom,
+                              widget.event.room,
                               style: TextStyle(
                                 color: colorText,
                                 fontSize: 16,
@@ -193,7 +194,7 @@ class _MyEventCardState extends State<MyEventCard> {
                 ),
               ),
             ),
-            _buildNumberOfNote(widget.event.note),
+            _buildNumberOfNote(widget.event.notes.length),
           ],
         ),
       );
@@ -206,8 +207,8 @@ class _MyEventCardState extends State<MyEventCard> {
     }
   }
 
-  Widget _buildNumberOfNote(String nbNote){
-    if (nbNote.isEmpty){
+  Widget _buildNumberOfNote(int nbNote){
+    if (nbNote == 0){
       return Container();
     }
     else {
@@ -222,7 +223,7 @@ class _MyEventCardState extends State<MyEventCard> {
           ),
           child: Center(
             child: Text(
-              nbNote,
+              nbNote.toString(),
               style: TextStyle(
                 fontSize: 9,
                 fontFamily: FONT_NUNITO,

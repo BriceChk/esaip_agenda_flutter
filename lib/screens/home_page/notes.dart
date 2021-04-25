@@ -1,11 +1,12 @@
-import 'package:esaip_agenda_flutter/models/event.dart';
+import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/models/course_note.dart';
 import 'package:esaip_agenda_flutter/shared/Components/my_event_card.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Notes extends StatefulWidget {
-  late final Event event;
+  late final CourseEvent event;
 
   Notes(this.event);
 
@@ -14,7 +15,6 @@ class Notes extends StatefulWidget {
 }
 
 class _NotesState extends State<Notes> {
-  List<String> noteList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _NotesState extends State<Notes> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            noteList.add('value');
+            widget.event.notes.add(CourseNote(id: -1, content: 'A FAIRE', createdDate: DateTime.now()));
           });
         },
         child: Icon(FontAwesomeIcons.plus),
@@ -47,7 +47,7 @@ class _NotesState extends State<Notes> {
           children: [
             Hero(
                 tag: widget.event.id.toString(),
-                child: MyEventCard(widget.event, false, widget.event.type)),
+                child: MyEventCard(widget.event, false)),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Text(
@@ -66,7 +66,7 @@ class _NotesState extends State<Notes> {
   }
 
   Widget _buildNotesList() {
-    if (noteList.isEmpty) {
+    if (widget.event.notes.isEmpty) {
       return Column(
         children: [
           Container(
@@ -88,12 +88,13 @@ class _NotesState extends State<Notes> {
       );
     } else {
       return Column(
-        children: noteList.map((e) => _buildNote(e)).toList(),
+        children: widget.event.notes.map((e) => _buildNote(e)).toList(),
       );
     }
   }
 
-  Widget _buildNote(String note) {
+  //TODO Afficher date
+  Widget _buildNote(CourseNote note) {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -101,7 +102,7 @@ class _NotesState extends State<Notes> {
       decoration: BoxDecoration(
           color: Colors.amber, borderRadius: BorderRadius.circular(20)),
       child: Text(
-        note,
+        note.content,
         style: TextStyle(fontFamily: FONT_NUNITO),
       ),
     );

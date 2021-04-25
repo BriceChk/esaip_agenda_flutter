@@ -1,6 +1,7 @@
 import 'package:esaip_agenda_flutter/shared/Components/my_button.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:requests/requests.dart';
 
 class Menu extends StatelessWidget {
   @override
@@ -34,7 +35,10 @@ class Menu extends StatelessWidget {
                   colorButton: COLOR_WHITE,
                   colorText: COLOR_GREY,
                   colorOverlay: COLOR_WHITE_GREY,
-                  onPressed: () {},
+                  onPressed: () {
+                    Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
+                    Navigator.pushReplacementNamed(context, '/login');
+                  },
                   colorShadow: COLOR_WHITE),
             ),
             Padding(
@@ -60,7 +64,9 @@ class Menu extends StatelessWidget {
                   colorButton: COLOR_WHITE,
                   colorText: COLOR_GREY,
                   colorOverlay: COLOR_WHITE_GREY,
-                  onPressed: () {},
+                  onPressed: () {
+                    //TODO Package infos légales
+                  },
                   colorShadow: COLOR_WHITE),
             ),
             Expanded(
@@ -137,6 +143,9 @@ class Menu extends StatelessWidget {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
+                //TODO Call suppression compte
+                Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
+                Navigator.pushReplacementNamed(context, '/login');
               },
             ),
           ],

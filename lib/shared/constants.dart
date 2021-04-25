@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //Colors
 const COLOR_WHITE = Color(0xffFFFFFF);
@@ -16,3 +17,20 @@ const COLOR_WHITE_GREY = Color(0xffF4F4F4);
 
 //Font
 const String FONT_NUNITO = "Nunito";
+
+// Utils
+String formatHours(DateTime time) {
+  DateFormat hourFormat = DateFormat('H:m');
+  return hourFormat.format(time);
+}
+
+String formatDate(DateTime time) {
+  DateFormat hourFormat = DateFormat('EEEE d MMMM', 'fr_FR');
+  return hourFormat.format(time).capitalize();
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}

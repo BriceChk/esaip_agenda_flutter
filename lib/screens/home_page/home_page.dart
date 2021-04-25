@@ -1,7 +1,8 @@
-import 'package:esaip_agenda_flutter/models/event.dart';
+import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu_transition.dart';
+import 'package:esaip_agenda_flutter/services/auth_service.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,24 +16,25 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  //TODO A enlever une fois le back end fait
-  List<Event> test = [];
 
+  List<CourseEvent> events = [];
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
     super.initState();
-    //TODO A enlever aussi
-    test.add(Event(id: 0, name: 'Développement mobile avancé, avancé avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 1));
-    test.add(Event(id: 1, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 2, note: "3"));
-    test.add(Event(id: 2, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Mercredi 07 Avril 2021", type: 3, note: "1"));
-    test.add(Event(id: 3, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Jeudi 08 Avril 2021", type: 2));
-    test.add(Event(id: 4, name: 'Développement mobile avancé', hours: '8h30 - 10h', classroom: 'C105', teacher: 'LAMY', date: "Jeudi 08 Avril 2021", type: 2, note:"15"));
+    _tabController = TabController(length: 2, vsync: this);
 
+    getEvents().then((value) {
+      if (value == null) {
+        print('Error events list !');
+      } else {
+        setState(() {
+          this.events = value;
+        });
+      }
+    });
   }
 
   @override
@@ -129,9 +131,9 @@ class _HomePageState extends State<HomePage>
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            EventList(event: test),
+            EventList(courseEvents: events),
             Center(
-              child: TimetableExample(),
+              child: TimetableExample(courseEvents: events,),
             ),
           ],
         ),

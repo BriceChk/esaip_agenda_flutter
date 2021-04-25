@@ -1,6 +1,5 @@
+import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 
 class MyButton extends StatelessWidget {
   final String text;

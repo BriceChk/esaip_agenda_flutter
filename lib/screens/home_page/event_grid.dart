@@ -1,11 +1,15 @@
-import 'package:esaip_agenda_flutter/shared/constants.dart';
+import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:flutter/material.dart';
-import 'package:timetable/timetable.dart';
 import 'package:time_machine/time_machine.dart';
+import 'package:timetable/timetable.dart';
 
 
 
 class TimetableExample extends StatefulWidget {
+  final List<CourseEvent> courseEvents;
+
+  TimetableExample({required this.courseEvents});
+
   @override
   _TimetableExampleState createState() => _TimetableExampleState();
 }
@@ -20,15 +24,7 @@ class _TimetableExampleState extends State<TimetableExample> {
 
     _controller = TimetableController(
       //A basic EventProvider containing a single event:
-      eventProvider: EventProvider.list([
-        BasicEvent(
-          id: 0,
-          title: 'My Event',
-          color: COLOR_GREEN_CARD,
-          start: LocalDate.today().at(LocalTime(13, 0, 0)),
-          end: LocalDate.today().at(LocalTime(15, 0, 0)),
-        ),
-      ]),
+      eventProvider: EventProvider.list(widget.courseEvents),
 
       // Other (optional) parameters:
       initialTimeRange: InitialTimeRange.range(

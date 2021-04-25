@@ -7,6 +7,7 @@ import 'package:esaip_agenda_flutter/services/auth_service.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:time_machine/time_machine.dart';
 
 
@@ -15,6 +16,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await TimeMachine.initialize({'rootBundle': rootBundle});
+  await initializeDateFormatting('fr_FR', null);
 
   runApp(MyApp());
 }

@@ -13,37 +13,37 @@ class EventList extends StatelessWidget {
   Widget build(BuildContext context) {
     var currentDate = '';
 
-    return ListView.builder(
-      itemCount: courseEvents.length,
-      itemBuilder: (BuildContext context, int index) {
-        var e = courseEvents[index];
-        List<Widget> widgets = [];
+    return Scrollbar(
+        child: ListView(
+          children: courseEvents.map((e) {
+            List<Widget> widgets = [];
 
-        // Add date if it's not the current date
-        if (formatDate(e.startsAt) != currentDate){
-          currentDate = formatDate(e.startsAt);
-          widgets.add(Container(
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              currentDate,
-              style: TextStyle(
-                fontFamily: FONT_NUNITO,
-                fontSize: 20,
-                color: COLOR_GREY,
-              ),
-            ),
-          ));
-        }
+            // Add date if it's not the current date
+            if (formatDate(e.startsAt) != currentDate){
+              currentDate = formatDate(e.startsAt);
+              widgets.add(Container(
+                padding: EdgeInsets.only(top: 15),
+                child: Text(
+                  currentDate,
+                  style: TextStyle(
+                    fontFamily: FONT_NUNITO,
+                    fontSize: 20,
+                    color: COLOR_GREY,
+                  ),
+                ),
+              ));
+            }
 
-        widgets.add(Hero(
-          tag: e.id.toString(),
-          child: MyEventCard(e, true),
-        ));
+            widgets.add(Hero(
+              tag: e.id.toString(),
+              child: MyEventCard(e, true),
+            ));
 
-        return Column(
-          children: widgets,
-        );
-      },
+            return Column(
+              children: widgets,
+            );
+          }).toList(),
+        )
     );
   }
 }

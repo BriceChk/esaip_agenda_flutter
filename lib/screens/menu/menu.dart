@@ -30,14 +30,27 @@ class Menu extends StatelessWidget {
               padding: EdgeInsets.only(top: 30),
               child: MyButton(
                   borderWidth: 1,
-                  text: "Déconnexion",
+                  text: "Notes",
                   colorBorder: COLOR_GREY,
                   colorButton: COLOR_WHITE,
                   colorText: COLOR_GREY,
                   colorOverlay: COLOR_WHITE_GREY,
                   onPressed: () {
-                    Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
-                    Navigator.pushReplacementNamed(context, '/login');
+                    Navigator.pushNamed(context, '/notes');
+                  },
+                  colorShadow: COLOR_WHITE),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: MyButton(
+                  borderWidth: 1,
+                  text: "Info légales",
+                  colorBorder: COLOR_GREY,
+                  colorButton: COLOR_WHITE,
+                  colorText: COLOR_GREY,
+                  colorOverlay: COLOR_WHITE_GREY,
+                  onPressed: () {
+                    //TODO Package infos légales
                   },
                   colorShadow: COLOR_WHITE),
             ),
@@ -59,13 +72,14 @@ class Menu extends StatelessWidget {
               padding: EdgeInsets.only(top: 30),
               child: MyButton(
                   borderWidth: 1,
-                  text: "Info légales",
+                  text: "Déconnexion",
                   colorBorder: COLOR_GREY,
                   colorButton: COLOR_WHITE,
                   colorText: COLOR_GREY,
                   colorOverlay: COLOR_WHITE_GREY,
                   onPressed: () {
-                    //TODO Package infos légales
+                    Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
+                    Navigator.pushReplacementNamed(context, '/login');
                   },
                   colorShadow: COLOR_WHITE),
             ),

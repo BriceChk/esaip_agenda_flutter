@@ -1,5 +1,6 @@
-import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
+import 'package:esaip_agenda_flutter/screens/home_page/event_list.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu_transition.dart';
 import 'package:esaip_agenda_flutter/services/api.dart';
@@ -7,9 +8,6 @@ import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'event_list.dart';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,8 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  List<CourseEvent> events = [];
-
   @override
   void initState() {
     super.initState();
@@ -28,10 +24,16 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     getEvents().then((value) {
       if (value == null) {
-        print('Error events list !');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'Erreur lors du chargement des cours',
+            style: TextStyle(fontFamily: FONT_NUNITO),
+          ),
+          duration: Duration(seconds: 3),
+        ));
       } else {
         setState(() {
-          this.events = value;
+          MyApp.events = value;
         });
       }
     });
@@ -129,9 +131,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            EventList(courseEvents: events),
+            EventList(),
             Center(
-              child: TimetableExample(courseEvents: events,),
+              child: TimetableExample(),
             ),
           ],
         ),

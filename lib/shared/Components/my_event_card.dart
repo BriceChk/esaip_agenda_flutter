@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/notes.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
@@ -7,9 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class MyEventCard extends StatefulWidget {
-  MyEventCard(this.event, this.opennedState);
+  MyEventCard(this.eventIndex, this.opennedState);
 
-  final CourseEvent event;
+  final int eventIndex;
   final bool opennedState;
 
   @override
@@ -24,12 +25,12 @@ class _MyEventCardState extends State<MyEventCard> {
   @override
   void initState() {
     super.initState();
-    switch (widget.event.type) {
+    switch (MyApp.events[widget.eventIndex].type) {
       case Type.EXAM:
-         colorText = COLOR_RED_TEXT;
-         colorCard = COLOR_RED_CARD;
-         colorButton = COLOR_RED_CARD_BUTTON;
-         break;
+        colorText = COLOR_RED_TEXT;
+        colorCard = COLOR_RED_CARD;
+        colorButton = COLOR_RED_CARD_BUTTON;
+        break;
       case Type.COURS:
         colorText = COLOR_GREEN_TEXT;
         colorCard = COLOR_GREEN_CARD;
@@ -66,7 +67,7 @@ class _MyEventCardState extends State<MyEventCard> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  widget.event.name,
+                  MyApp.events[widget.eventIndex].name,
                   style: TextStyle(
                     color: colorText,
                     fontSize: 20,
@@ -86,7 +87,7 @@ class _MyEventCardState extends State<MyEventCard> {
                     ),
                     SizedBox(width: 7.5),
                     Text(
-                      formatHours(widget.event.startsAt) + ' - ' + formatHours(widget.event.endsAt),
+                      formatHours(MyApp.events[widget.eventIndex].startsAt) + ' - ' + formatHours(MyApp.events[widget.eventIndex].endsAt),
                       style: TextStyle(
                         color: colorText,
                         fontSize: 16,
@@ -113,7 +114,7 @@ class _MyEventCardState extends State<MyEventCard> {
                             ),
                             SizedBox(width: 7.5),
                             Text(
-                              widget.event.room,
+                              MyApp.events[widget.eventIndex].room,
                               style: TextStyle(
                                 color: colorText,
                                 fontSize: 16,
@@ -134,7 +135,7 @@ class _MyEventCardState extends State<MyEventCard> {
                             ),
                             SizedBox(width: 7.5),
                             Text(
-                              widget.event.teacher,
+                              MyApp.events[widget.eventIndex].teacher,
                               style: TextStyle(
                                 color: colorText,
                                 fontSize: 16,
@@ -168,12 +169,10 @@ class _MyEventCardState extends State<MyEventCard> {
                 color: Colors.transparent,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(7.5),
-                  onTap: () {
-                    Navigator.push(context, CupertinoPageRoute(builder: (_) {
-                      return Notes(widget.event);
-                    },
-                    ));},
-
+                  onTap: () async {
+                    await Navigator.push(context, CupertinoPageRoute(builder: (_) => Notes(widget.eventIndex)));
+                    setState(() { });
+                  },
                   splashColor: Colors.white,
                   child: Ink(
                     child: Container(
@@ -194,7 +193,7 @@ class _MyEventCardState extends State<MyEventCard> {
                 ),
               ),
             ),
-            _buildNumberOfNote(widget.event.notes.length),
+            _buildNumberOfNote(MyApp.events[widget.eventIndex].notes.length),
           ],
         ),
       );

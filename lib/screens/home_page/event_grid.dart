@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/basic_event_extended.dart';
 import 'package:flutter/material.dart';
@@ -5,16 +6,11 @@ import 'package:time_machine/time_machine.dart';
 import 'package:timetable/timetable.dart';
 
 class TimetableExample extends StatefulWidget {
-  final List<CourseEvent> courseEvents;
-
-  TimetableExample({required this.courseEvents});
-
   @override
   _TimetableExampleState createState() => _TimetableExampleState();
 }
 
 class _TimetableExampleState extends State<TimetableExample> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late TimetableController<BasicEvent> _controller;
 
   @override
@@ -23,7 +19,7 @@ class _TimetableExampleState extends State<TimetableExample> {
 
     _controller = TimetableController(
       //A basic EventProvider containing a single event:
-      eventProvider: EventProvider.list(widget.courseEvents),
+      eventProvider: EventProvider.list(MyApp.events),
 
       // Other (optional) parameters:
       initialTimeRange: InitialTimeRange.range(

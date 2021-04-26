@@ -1,4 +1,4 @@
-import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/models/course_note.dart';
 import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/Components/my_event_card.dart';
@@ -9,9 +9,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class Notes extends StatefulWidget {
-  late final CourseEvent event;
+  late final int eventIndex;
 
-  Notes(this.event);
+  Notes(this.eventIndex);
 
   @override
   _NotesState createState() => _NotesState();
@@ -36,7 +36,7 @@ class _NotesState extends State<Notes> {
         elevation: 0,
         backgroundColor: COLOR_WHITE,
         title: Text(
-          'Agenda ESAIP',
+          'Cours',
           style: TextStyle(
             fontFamily: FONT_NUNITO,
             color: COLOR_GREY,
@@ -49,8 +49,8 @@ class _NotesState extends State<Notes> {
         child: Column(
           children: [
             Hero(
-                tag: widget.event.id.toString(),
-                child: MyEventCard(widget.event, false)),
+                tag: MyApp.events[widget.eventIndex].id.toString(),
+                child: MyEventCard(widget.eventIndex, false)),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Text(
@@ -69,7 +69,7 @@ class _NotesState extends State<Notes> {
   }
 
   Widget _buildNotesList() {
-    if (widget.event.notes.isEmpty) {
+    if (MyApp.events[widget.eventIndex].notes.isEmpty) {
       return Column(
         children: [
           Image.asset(
@@ -91,7 +91,7 @@ class _NotesState extends State<Notes> {
         height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom - 280,
         child: ListView(
           physics: BouncingScrollPhysics(),
-          children: widget.event.notes.map((e) => _buildNote(e)).toList(),
+          children: MyApp.events[widget.eventIndex].notes.map((e) => _buildNote(e)).toList(),
         ),
       );
     }
@@ -178,36 +178,34 @@ class _NotesState extends State<Notes> {
               updateNote(note).then((value) {
                 Navigator.pop(context, true);
                 if (value == null) {
-                  //TODO Error
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                      'Une erreur est survenu, la note n\'a pas été enregister',
+                      "Une erreur est survenue, la note n'a pas été enregistée",
                       style: TextStyle(fontFamily: FONT_NUNITO),
                     ),
                     duration: Duration(seconds: 3),
                   ));
                 } else {
                   setState(() {
-                    widget.event.notes.remove(note);
-                    widget.event.notes.insert(0, value);
+                    MyApp.events[widget.eventIndex].notes.remove(note);
+                    MyApp.events[widget.eventIndex].notes.insert(0, value);
                   });
                 }
               });
             } else {
-              addNote(widget.event, textEditingController.text).then((value) {
+              addNote(MyApp.events[widget.eventIndex], textEditingController.text).then((value) {
                 Navigator.pop(context, true);
                 if (value == null) {
-                  //TODO Error
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                      'Une erreur est survenu, la note n\'a pas été enregister',
+                      "Une erreur est survenue, la note n'a pas été enregistée",
                       style: TextStyle(fontFamily: FONT_NUNITO),
                     ),
                     duration: Duration(seconds: 3),
                   ));
                 } else {
                   setState(() {
-                    widget.event.notes.insert(0, value);
+                    MyApp.events[widget.eventIndex].notes.insert(0, value);
                   });
                 }
               });
@@ -227,7 +225,7 @@ class _NotesState extends State<Notes> {
           deleteNote(note).then((value) {
             Navigator.pop(context, true);
             setState(() {
-              widget.event.notes.remove(note);
+              MyApp.events[widget.eventIndex].notes.remove(note);
             });
           });
         },

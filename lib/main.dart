@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/loading_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
@@ -21,6 +22,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  static List<CourseEvent> events = [];
+
   @override
   _MyAppState createState() => _MyAppState();
 }

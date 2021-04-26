@@ -1,14 +1,10 @@
-import 'package:esaip_agenda_flutter/models/course_event.dart';
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/shared/Components/my_event_card.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventList extends StatelessWidget {
-  final List<CourseEvent> courseEvents;
-
-  EventList({required this.courseEvents});
-
   @override
   Widget build(BuildContext context) {
     var currentDate = '';
@@ -16,7 +12,7 @@ class EventList extends StatelessWidget {
     return Scrollbar(
         child: ListView(
           physics: BouncingScrollPhysics(),
-          children: courseEvents.map((e) {
+          children: MyApp.events.map((e) {
             List<Widget> widgets = [];
 
             // Add date if it's not the current date
@@ -37,7 +33,7 @@ class EventList extends StatelessWidget {
 
             widgets.add(Hero(
               tag: e.id.toString(),
-              child: MyEventCard(e, true),
+              child: MyEventCard(MyApp.events.indexOf(e), true),
             ));
 
             return Column(

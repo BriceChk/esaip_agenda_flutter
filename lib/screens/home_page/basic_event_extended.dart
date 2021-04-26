@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/main.dart';
 import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/notes.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
@@ -18,7 +19,7 @@ class BasicEventExtendedWidget extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(4),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Notes(event)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Notes(MyApp.events.indexOf(event))));
         },
         child: Padding(
           padding: EdgeInsets.fromLTRB(4, 2, 4, 0),

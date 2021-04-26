@@ -45,7 +45,6 @@ class _MyAppState extends State<MyApp> {
           //highlightColor: COLOR_GREY.withOpacity(0.25),
           highlightColor: Colors.transparent,
           primarySwatch: Colors.grey,
-          dividerColor: Colors.transparent
         ),
         home: FutureBuilder(
           future: getStatus(),

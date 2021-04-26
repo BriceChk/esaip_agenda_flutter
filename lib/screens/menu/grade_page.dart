@@ -11,6 +11,8 @@ class GradePage extends StatefulWidget {
 class _GradePageState extends State<GradePage> {
   List<GradeGroup> gd = [];
 
+  late ThemeData themeData;
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +29,9 @@ class _GradePageState extends State<GradePage> {
 
   @override
   Widget build(BuildContext context) {
+    themeData = Theme.of(context).copyWith(
+        dividerColor: Colors.transparent
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: COLOR_WHITE,
@@ -52,30 +57,33 @@ class _GradePageState extends State<GradePage> {
   }
 
   Widget _buildGradeWidget(GradeGroup grade) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-      child: Card(
-        elevation: 2,
-        shadowColor: COLOR_WHITE_GREY,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        child: ListTileTheme(
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          dense: true,
-          child: ExpansionTile(
-            title: Text(
-              grade.name,
-              softWrap: false,
-              overflow: TextOverflow.fade,
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: FONT_NUNITO,
+    return Theme(
+      data: themeData,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        child: Card(
+          elevation: 2,
+          shadowColor: COLOR_WHITE_GREY,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          child: ListTileTheme(
+            contentPadding: EdgeInsets.symmetric(horizontal: 10),
+            dense: true,
+            child: ExpansionTile(
+              title: Text(
+                grade.name,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+                maxLines: 2,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: FONT_NUNITO,
+                ),
               ),
+              childrenPadding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+              children: grade.grades.map((grd) => _buildGrade(grd)).toList(),
             ),
-            childrenPadding: EdgeInsets.fromLTRB(10, 0, 10, 5),
-            children: grade.grades.map((grd) => _buildGrade(grd)).toList(),
-          ),
-        )
+          )
+        ),
       ),
     );
   }

@@ -36,7 +36,8 @@ class _MyAppState extends State<MyApp> {
         title: 'Agenda ESAIP',
         theme: ThemeData(
           accentColor: COLOR_GREY.withOpacity(0.5),
-          highlightColor: COLOR_GREY.withOpacity(0.25),
+          //highlightColor: COLOR_GREY.withOpacity(0.25),
+          highlightColor: Colors.transparent,
           primarySwatch: Colors.grey,
         ),
         home: FutureBuilder(

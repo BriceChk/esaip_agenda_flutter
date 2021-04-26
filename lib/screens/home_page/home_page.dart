@@ -81,12 +81,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   width: 250,
                   decoration: BoxDecoration(
                     color: COLOR_GREY,
-                    borderRadius: BorderRadius.circular(
-                      25.0,
-                    ),
+                    borderRadius: BorderRadius.circular(25.0),
                   ),
                   child: TabBar(
-                    //TODO voir couleur quand on rest appuyé.
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
                     controller: _tabController,
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(25.0),

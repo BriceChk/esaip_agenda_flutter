@@ -83,6 +83,7 @@ class Menu extends StatelessWidget {
                   colorOverlay: COLOR_WHITE_GREY,
                   onPressed: () {
                     Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
+                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(context, '/login');
                   },
                   colorShadow: COLOR_WHITE),

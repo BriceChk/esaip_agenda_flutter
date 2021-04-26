@@ -44,13 +44,17 @@ class Menu extends StatelessWidget {
               padding: EdgeInsets.only(top: 30),
               child: MyButton(
                   borderWidth: 1,
-                  text: "Info légales",
+                  text: "Informations de licence",
                   colorBorder: COLOR_GREY,
                   colorButton: COLOR_WHITE,
                   colorText: COLOR_GREY,
                   colorOverlay: COLOR_WHITE_GREY,
                   onPressed: () {
-                    //TODO Package infos légales
+                    showLicensePage(
+                        context: context,
+                      applicationName: 'Agenda ESAIP',
+                      applicationIcon: Image.asset('assets/images/logo.png')
+                    );
                   },
                   colorShadow: COLOR_WHITE),
             ),

@@ -1,7 +1,7 @@
 import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/loading_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
-import 'package:esaip_agenda_flutter/screens/notes/grade.dart';
+import 'package:esaip_agenda_flutter/screens/menu/grade_page.dart';
 import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: COLOR_WHITE
+    ));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Agenda ESAIP',
@@ -39,6 +41,7 @@ class _MyAppState extends State<MyApp> {
           //highlightColor: COLOR_GREY.withOpacity(0.25),
           highlightColor: Colors.transparent,
           primarySwatch: Colors.grey,
+          dividerColor: Colors.transparent
         ),
         home: FutureBuilder(
           future: getStatus(),

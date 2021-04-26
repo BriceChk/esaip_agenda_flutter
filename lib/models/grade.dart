@@ -1,22 +1,17 @@
-import 'package:flutter/material.dart';
+class GradeGroup {
+  GradeGroup({
+    required this.name,
+  });
+
+  String name;
+  List<Grade> grades = [];
+}
 
 class Grade {
   Grade({
-    required this.id,
-    required this.name,
-    required this.grades,
-  });
-
-  int id;
-  String name;
-  List<Grades> grades;
-}
-
-class Grades {
-  Grades({
-    required this.name,
+    required this.evalName,
     required this.grade,
   });
-  String name;
+  String evalName;
   String grade;
 }

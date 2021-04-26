@@ -97,7 +97,6 @@ class _NotesState extends State<Notes> {
     }
   }
 
-  //TODO Afficher date
   Widget _buildNote(CourseNote note) {
     var df = DateFormat('dd MMM yyyy - H:mm', 'fr_FR');
     return GestureDetector(
@@ -162,7 +161,7 @@ class _NotesState extends State<Notes> {
       ),
       TextButton(
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all<Color>(COLOR_RED_CARD_BUTTON),
+          overlayColor: MaterialStateProperty.all<Color>(COLOR_WHITE_GREY),
         ),
         child: Text(
           'Enregistrer',
@@ -180,6 +179,13 @@ class _NotesState extends State<Notes> {
                 Navigator.pop(context, true);
                 if (value == null) {
                   //TODO Error
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      'Une erreur est survenu, la note n\'a pas été enregister',
+                      style: TextStyle(fontFamily: FONT_NUNITO),
+                    ),
+                    duration: Duration(seconds: 3),
+                  ));
                 } else {
                   setState(() {
                     widget.event.notes.remove(note);
@@ -192,6 +198,13 @@ class _NotesState extends State<Notes> {
                 Navigator.pop(context, true);
                 if (value == null) {
                   //TODO Error
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      'Une erreur est survenu, la note n\'a pas été enregister',
+                      style: TextStyle(fontFamily: FONT_NUNITO),
+                    ),
+                    duration: Duration(seconds: 3),
+                  ));
                 } else {
                   setState(() {
                     widget.event.notes.add(value);
@@ -208,7 +221,7 @@ class _NotesState extends State<Notes> {
       textEditingController.text = note.content;
       actions.insert(1, TextButton(
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all<Color>(COLOR_WHITE_GREY),
+          overlayColor: MaterialStateProperty.all<Color>(COLOR_RED_CARD),
         ),
         onPressed: () {
           deleteNote(note).then((value) {

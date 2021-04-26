@@ -54,7 +54,7 @@ class _NotesState extends State<Notes> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Text(
-                'Notes',
+                'Bloc-notes',
                 style: TextStyle(
                   fontSize: 22,
                   fontFamily: FONT_NUNITO,

@@ -19,7 +19,6 @@ class MyButton extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width - 60,
       child: ElevatedButton(
-        //TODO : ajouter un parametre pour faire des shadows couleur
         style: ButtonStyle(
           elevation: MaterialStateProperty.all<double>(0),
           overlayColor: MaterialStateProperty.all<Color>(colorOverlay),

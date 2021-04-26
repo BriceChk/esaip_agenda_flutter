@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               child = LoadingPage();
             } else {
-              if (snapshot.hasData) {
+              if (snapshot.hasData && snapshot.data as bool) {
                 child = HomePage();
               } else {
                 child = LoginPage();

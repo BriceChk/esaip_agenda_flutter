@@ -207,7 +207,7 @@ class _NotesState extends State<Notes> {
                   ));
                 } else {
                   setState(() {
-                    widget.event.notes.add(value);
+                    widget.event.notes.insert(0, value);
                   });
                 }
               });

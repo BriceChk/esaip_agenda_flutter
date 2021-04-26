@@ -19,6 +19,10 @@ class GradePage extends StatelessWidget {
     gds2.add(Grades(name: 'Note 2', grade: '3/20'));
     gds2.add(Grades(name: 'Projet 25', grade: '5.3/20'));
     gd.add(Grade(id: 0, name: 'Android avancé', grades: gds2));
+    gd.add(Grade(id: 0, name: 'Android avancé', grades: gds2));
+    gd.add(Grade(id: 0, name: 'Android avancé', grades: gds2));
+    gd.add(Grade(id: 0, name: 'Android avancé', grades: gds2));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: COLOR_WHITE,
@@ -37,7 +41,15 @@ class GradePage extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: gd.map((grd) => _buildGradeWidget(grd)).toList(),
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: gd.map((grd) => _buildGradeWidget(grd)).toList(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

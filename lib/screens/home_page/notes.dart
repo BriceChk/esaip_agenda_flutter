@@ -25,6 +25,7 @@ class _NotesState extends State<Notes> {
       resizeToAvoidBottomInset: false,
       backgroundColor: COLOR_WHITE,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: COLOR_GREY,
         onPressed: () {
           _showMyDialog(context, null);
         },

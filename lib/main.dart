@@ -1,5 +1,3 @@
-//@dart=2.9
-
 import 'package:esaip_agenda_flutter/screens/home_page/home_page.dart';
 import 'package:esaip_agenda_flutter/screens/loading_page.dart';
 import 'package:esaip_agenda_flutter/screens/login_page/login_page.dart';
@@ -11,13 +9,12 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:time_machine/time_machine.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WidgetsFlutterBinding.ensureInitialized();
   await TimeMachine.initialize({'rootBundle': rootBundle});
-  Culture.current = await Cultures.getCulture('fr');
+  Culture.current = (await Cultures.getCulture('fr'))!;
   await initializeDateFormatting('fr_FR', null);
 
   runApp(MyApp());
@@ -49,7 +46,7 @@ class _MyAppState extends State<MyApp> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               child = LoadingPage();
             } else {
-              if (snapshot.data) {
+              if (snapshot.hasData) {
                 child = HomePage();
               } else {
                 child = LoginPage();

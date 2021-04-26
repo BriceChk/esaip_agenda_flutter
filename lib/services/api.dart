@@ -23,6 +23,7 @@ Future<bool> getStatus() async {
 Future<List<CourseEvent>?> getEvents() async {
   final response = await Requests.get('$url/courses');
   if (response.hasError) {
+    print(response.content());
     return null;
   }
   var jsonArray = jsonDecode(response.content()) as List;

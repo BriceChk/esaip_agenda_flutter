@@ -23,7 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  requests: ^3.3.0
+  requests:
+    path: my_dependencies/requests
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -31,12 +32,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.0.0
   progress_indicators: ^1.0.0
-  timetable: ^0.2.9
+  timetable:
+    path: my_dependencies/timetable
   intl: ^0.17.0
   expandable: ^5.0.1
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.8.0
+  flutter_launcher_icons: ^0.9.0
   flutter_test:
     sdk: flutter
 

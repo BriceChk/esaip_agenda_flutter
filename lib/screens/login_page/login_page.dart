@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40),
+                padding: EdgeInsets.only(top: 30, bottom: 10),
                 child: MyButton(
                   text: 'Se connecter',
                   colorBorder: COLOR_GREY,
@@ -86,10 +86,12 @@ class _LoginPageState extends State<LoginPage> {
                   colorShadow: Colors.transparent,
                 ),
               ),
-              Container(
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  height: 150,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: 150
+                ),
+                child: Container(
+                  child: Image.asset('assets/images/logo.png',),
                 ),
               ),
             ],

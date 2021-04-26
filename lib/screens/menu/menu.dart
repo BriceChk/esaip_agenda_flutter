@@ -103,10 +103,12 @@ class Menu extends StatelessWidget {
                   )
               ),
             ),
-            Container(
-              child: Image.asset(
-                'assets/images/logo.png',
-                height: 150,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 150,
+              ),
+              child: Container(
+                child: Image.asset('assets/images/logo.png'),
               ),
             ),
           ],

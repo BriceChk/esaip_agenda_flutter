@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
           '/home': (BuildContext context) => HomePage(),
           '/notes': (BuildContext context) => GradePage(),
         }
-
     );
   }
 }

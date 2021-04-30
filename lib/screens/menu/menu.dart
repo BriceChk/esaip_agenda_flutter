@@ -4,7 +4,14 @@ import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:requests/requests.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  bool _syncEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +46,34 @@ class Menu extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/notes');
                   },
+                  colorShadow: COLOR_WHITE),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: MyButton(
+                  borderWidth: 1,
+                  text: _syncEnabled ? "Forcer la synchro des cours" : 'Synchro en cours ...',
+                  colorBorder: COLOR_GREY,
+                  colorButton: COLOR_WHITE,
+                  colorText: COLOR_GREY,
+                  colorOverlay: COLOR_WHITE_GREY,
+                  onPressed: _syncEnabled ? () {
+                    setState(() {
+                      _syncEnabled = false;
+                    });
+                    syncCourses().then((value) {
+                      setState(() {
+                        _syncEnabled = true;
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          value ? 'Synchronisation terminée !' : 'Erreur pendant la synchro :(',
+                          style: TextStyle(fontFamily: FONT_NUNITO),
+                        ),
+                        duration: Duration(seconds: 3),
+                      ));
+                    });
+                  } : null,
                   colorShadow: COLOR_WHITE),
             ),
             Padding(

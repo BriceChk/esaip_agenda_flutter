@@ -8,7 +8,7 @@ class MyButton extends StatelessWidget {
   final Color colorText;
   final Color colorOverlay;
   final double borderWidth;
-  final GestureTapCallback onPressed;
+  final GestureTapCallback? onPressed;
   final Color colorShadow;
 
   MyButton({required this.text, required this.colorBorder, required this.colorButton, required this.colorText,

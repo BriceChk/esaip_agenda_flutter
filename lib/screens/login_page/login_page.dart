@@ -108,10 +108,20 @@ class _LoginPageState extends State<LoginPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext ctx) {
         login(_username, _password).then((value) {
-          Navigator.pop(ctx);
-          if (value) {
+          if (value > 0) {
+            Navigator.pop(ctx);
             Navigator.of(context).popAndPushNamed('/home');
+          } else if (value == 0) {
+            syncCourses().then((value) {
+              Navigator.pop(ctx);
+              if (value) {
+                Navigator.of(context).popAndPushNamed('/home');
+              } else {
+                _errorText = "Erreur pendant la synchro des cours";
+              }
+            });
           } else {
+            Navigator.pop(ctx);
             setState(() {
               _errorText = "Utilisateur ou mot de passe incorrect";
             });

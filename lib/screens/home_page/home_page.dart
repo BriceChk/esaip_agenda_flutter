@@ -1,4 +1,5 @@
 import 'package:esaip_agenda_flutter/main.dart';
+import 'package:esaip_agenda_flutter/models/course_event.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_grid.dart';
 import 'package:esaip_agenda_flutter/screens/home_page/event_list.dart';
 import 'package:esaip_agenda_flutter/screens/menu/menu.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:timetable/timetable.dart';
+import 'package:time_machine/time_machine.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,12 +20,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final ItemScrollController itemScrollController = ItemScrollController();
+  late TimetableController<CourseEvent> _gridController;
+  final ItemScrollController _itemScrollController = ItemScrollController();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _initGridController();
 
     getEvents().then((value) {
       if (value == null) {
@@ -37,14 +42,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         setState(() {
           MyApp.events = value;
         });
+        _gridController.dispose();
+        _initGridController();
       }
     });
+  }
+
+  void _initGridController() {
+    _gridController = TimetableController(
+      eventProvider: EventProvider.list(MyApp.events),
+
+      // Other (optional) parameters:
+      initialTimeRange: InitialTimeRange.range(
+        startTime: LocalTime(8, 0, 0),
+        endTime: LocalTime(20, 0, 0),
+      ),
+      initialDate: LocalDate.today(),
+      visibleRange: VisibleRange.days(3),
+      firstDayOfWeek: DayOfWeek.monday,
+    );
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    _gridController.dispose();
   }
 
   @override
@@ -72,8 +95,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               splashRadius: 25,
               icon: Icon(FontAwesomeIcons.home),
               onPressed: () {
-                _tabController.animateTo(0);
-                itemScrollController.scrollTo(index: MyApp.getCurrentEventIndex(), duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                if (_tabController.index == 0) {
+                  _itemScrollController.scrollTo(index: MyApp.getCurrentEventIndex(), duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                } else {
+                  _gridController.animateToToday();
+                }
               },
             ),
           ),
@@ -146,9 +172,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            EventList(itemScrollController),
+            EventList(_itemScrollController),
             Center(
-              child: TimetableExample(),
+              child: TimetableExample(_gridController),
             ),
           ],
         ),

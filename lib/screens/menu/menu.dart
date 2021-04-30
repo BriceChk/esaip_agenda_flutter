@@ -1,3 +1,4 @@
+import 'package:esaip_agenda_flutter/services/api.dart';
 import 'package:esaip_agenda_flutter/shared/Components/my_button.dart';
 import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,7 @@ class Menu extends StatelessWidget {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
+      builder: (BuildContext ctx) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -163,10 +164,11 @@ class Menu extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
-                //TODO Call suppression compte
-                Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.of(ctx).pop();
+                deleteAccount().then((value) {
+                  Requests.clearStoredCookies('agenda-esaip.bricechk.fr:443');
+                  Navigator.pushReplacementNamed(context, '/login');
+                });
               },
             ),
           ],

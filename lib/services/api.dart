@@ -7,12 +7,22 @@ import 'package:requests/requests.dart';
 
 String url = 'https://agenda-esaip.bricechk.fr';
 
-Future<bool> login(String login, String password) async {
+Future<int> login(String login, String password) async {
   final response = await Requests.post('$url/login', body: {
     'username': login,
     'password': password
   }, bodyEncoding: RequestBodyEncoding.JSON);
+  var json = jsonDecode(response.content());
+  return response.statusCode == 200 ? json['eventCount'] : -1;
+}
 
+Future<bool> syncCourses() async {
+  final response = await Requests.post('$url/sync-courses');
+  return response.statusCode == 200;
+}
+
+Future<bool> deleteAccount() async {
+  final response = await Requests.post('$url/delete-account');
   return response.statusCode == 200;
 }
 

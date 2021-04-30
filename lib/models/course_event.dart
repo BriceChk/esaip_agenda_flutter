@@ -75,12 +75,10 @@ class CourseEvent implements BasicEvent {
 
   @override
   bool operator ==(other) {
-    // TODO: implement ==
     return super == other;
   }
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 
   @override

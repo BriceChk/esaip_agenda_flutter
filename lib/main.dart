@@ -24,6 +24,20 @@ void main() async {
 class MyApp extends StatefulWidget {
   static List<CourseEvent> events = [];
 
+  static int getCurrentEventIndex() {
+    int index = 0;
+    DateTime now = new DateTime.now().toLocal();
+    events.forEach((element) {
+      if (element.endsAt.isBefore(now)) {
+        index++;
+      } else {
+        return;
+      }
+    });
+    print(index);
+    return index;
+  }
+
   @override
   _MyAppState createState() => _MyAppState();
 }

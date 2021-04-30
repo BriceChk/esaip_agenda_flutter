@@ -18,7 +18,13 @@ class _GradePageState extends State<GradePage> {
     super.initState();
     getGrades().then((value) {
       if (value == null) {
-        //TODO Error
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            'Erreur lors du chargement des notes',
+            style: TextStyle(fontFamily: FONT_NUNITO),
+          ),
+          duration: Duration(seconds: 3),
+        ));
       } else {
         setState(() {
           gd = value;

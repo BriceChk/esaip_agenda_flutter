@@ -27,7 +27,7 @@ class Menu extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 20),
               child: MyButton(
                   borderWidth: 1,
                   text: "Notes",
@@ -41,7 +41,7 @@ class Menu extends StatelessWidget {
                   colorShadow: COLOR_WHITE),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 20),
               child: MyButton(
                   borderWidth: 1,
                   text: "Informations de licence",
@@ -59,7 +59,7 @@ class Menu extends StatelessWidget {
                   colorShadow: COLOR_WHITE),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 20),
               child: MyButton(
                   borderWidth: 1,
                   text: "Supprimer mes données",
@@ -73,7 +73,7 @@ class Menu extends StatelessWidget {
                   colorShadow: COLOR_WHITE),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.only(top: 20),
               child: MyButton(
                   borderWidth: 1,
                   text: "Déconnexion",

@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           children: [
             EventList(_itemScrollController),
             Center(
-              child: TimetableExample(_gridController),
+              child: EventGrid(_gridController),
             ),
           ],
         ),

@@ -8,6 +8,7 @@ import 'package:esaip_agenda_flutter/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final ItemScrollController itemScrollController = ItemScrollController();
 
   @override
   void initState() {
@@ -63,6 +65,19 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             },
           ),
         ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: IconButton(
+              splashRadius: 25,
+              icon: Icon(FontAwesomeIcons.home),
+              onPressed: () {
+                _tabController.animateTo(0);
+                itemScrollController.scrollTo(index: MyApp.getCurrentEventIndex(), duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+              },
+            ),
+          ),
+        ],
         title: Text(
           'Agenda ESAIP',
           style: TextStyle(
@@ -131,7 +146,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           physics: NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
-            EventList(),
+            EventList(itemScrollController),
             Center(
               child: TimetableExample(),
             ),

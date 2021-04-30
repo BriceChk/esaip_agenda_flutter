@@ -10,7 +10,10 @@ class TimetableExample extends StatefulWidget {
   _TimetableExampleState createState() => _TimetableExampleState();
 }
 
-class _TimetableExampleState extends State<TimetableExample> {
+class _TimetableExampleState extends State<TimetableExample> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   late TimetableController<BasicEvent> _controller;
 
   @override

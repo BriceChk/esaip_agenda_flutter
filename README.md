@@ -1,16 +1,10 @@
-# esaip_agenda_flutter
+# Agenda ESAIP
 
 A handy little app to allow ESAIP students to quickly see and manage their agenda.
 
-## Getting Started
+This app was made during the Android course of the IoT major in the 4th year of engineering at ESAIP.
 
-This project is a starting point for a Flutter application.
+[Check out the developer guide (in French) here!](dev_guide.md)
 
-A few resources to get you started if this is your first Flutter project:
+[*This Flutter app works with this Symfony API*](https://github.com/BriceChk/esaip_agenda_symfony)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

@@ -34,7 +34,6 @@ class MyApp extends StatefulWidget {
         return;
       }
     });
-    print(index);
     return index;
   }
 

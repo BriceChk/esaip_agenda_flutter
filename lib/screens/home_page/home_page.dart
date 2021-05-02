@@ -92,13 +92,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           Padding(
             padding: EdgeInsets.only(right: 20),
             child: IconButton(
+              tooltip: 'Aller au prochain cours',
               splashRadius: 25,
               icon: Icon(FontAwesomeIcons.home),
               onPressed: () {
                 if (_tabController.index == 0) {
                   _itemScrollController.scrollTo(index: MyApp.getCurrentEventIndex(), duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                 } else {
-                  _gridController.animateToToday();
+                  _gridController.animateTo(MyApp.events[MyApp.getCurrentEventIndex()].start.calendarDate);
                 }
               },
             ),

@@ -62,7 +62,7 @@ class CourseEvent implements BasicEvent {
   };
 
   @override
-  LocalDateTime get end => LocalDateTime.dateTime(endsAt.add(endsAt.timeZoneOffset));
+  LocalDateTime get end => LocalDateTime.dateTime(endsAt.add(endsAt.timeZoneOffset).toUtc());
 
   @override
   bool get isAllDay => false;
@@ -71,7 +71,7 @@ class CourseEvent implements BasicEvent {
   bool get isPartDay => true;
 
   @override
-  LocalDateTime get start => LocalDateTime.dateTime(startsAt.add(startsAt.timeZoneOffset));
+  LocalDateTime get start => LocalDateTime.dateTime(startsAt.add(startsAt.timeZoneOffset).toUtc());
 
   @override
   bool operator ==(other) {

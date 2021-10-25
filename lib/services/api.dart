@@ -5,7 +5,7 @@ import 'package:esaip_agenda_flutter/models/course_note.dart';
 import 'package:esaip_agenda_flutter/models/grade.dart';
 import 'package:requests/requests.dart';
 
-String url = 'https://agenda-esaip.bricechk.fr';
+String url = 'https://agenda-esaip.bricechk.fr/api';
 
 Future<int> login(String login, String password) async {
   final response = await Requests.post('$url/login', body: {

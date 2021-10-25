@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
+import 'dart:html';
 
+import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart' as io_client;
 import 'package:logging/logging.dart';
@@ -100,7 +102,8 @@ class Requests {
   static Future<Map<String, String>> _constructRequestHeaders(String hostname, Map<String, String>? customHeaders) async {
     var cookies = await getStoredCookies(hostname);
     var cookie = cookies.keys.map((key) => '$key=${cookies[key]}').join('; ');
-    var requestHeaders = Map<String, String>();
+    var requestHeaders = <String, String>{};
+    document.cookie = cookie;
     requestHeaders['cookie'] = cookie;
     if (customHeaders != null) {
       requestHeaders.addAll(customHeaders);
@@ -312,6 +315,7 @@ class Requests {
     } else {
       // The default client validates SSL certificates and fail if invalid
       client = http.Client();
+      (client as BrowserClient).withCredentials = true;
     }
 
     var uri = Uri.parse(url);
@@ -322,7 +326,7 @@ class Requests {
     }
 
     var hostname = getHostname(url);
-    headers = await (_constructRequestHeaders(hostname, headers) as FutureOr<Map<String, String>?>);
+    headers = await (_constructRequestHeaders(hostname, headers));
     String? requestBody;
 
     if (body != null && json != null) {
@@ -367,7 +371,7 @@ class Requests {
           break;
       }
 
-      if (!Common.hasKeyIgnoreCase(headers!, 'content-type')) {
+      if (!Common.hasKeyIgnoreCase(headers, 'content-type')) {
         headers['content-type'] = contentTypeHeader;
       }
     }
@@ -383,7 +387,7 @@ class Requests {
         break;
       case HttpMethod.DELETE:
         final request = http.Request('DELETE', uri);
-        request.headers.addAll(headers!);
+        request.headers.addAll(headers);
 
         if (requestBody != null) {
           request.body = requestBody;
